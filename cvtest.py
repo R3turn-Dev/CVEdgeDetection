@@ -4,23 +4,31 @@ from os import listdir, mkdir
 
 
 def main(filename, RESIZE_RATIO=.25, MODE_ALL=False, show=False, return_all=False):
+    # Read file
     image = cv.imread(filename, cv.IMREAD_UNCHANGED)
     cols, rows, chns = image.shape
 
+    # Downscale image
     image = cv.resize(image, dsize=(int(rows*RESIZE_RATIO), int(cols*RESIZE_RATIO)), interpolation=cv.INTER_AREA)
     h, w = image.shape[:2]
 
+    # Resized -> GrayScale -> Canny
     gray = cv.cvtColor(image, cv.COLOR_RGB2GRAY)
     blurred = cv.GaussianBlur(gray, (3, 3), 0)
     canny = cv.Canny(blurred, 100, 255)
+
+    # Estimate lines
     contours, hierarachy = cv.findContours(canny.copy(), cv.RETR_LIST, cv.CHAIN_APPROX_SIMPLE)
 
+    # Draws rectangled lines
+    # Draw all lines
     if MODE_ALL:
         out = image.copy()
 
         for c in contours:
             cv.drawContours(out, [cv.approxPolyDP(c, 3, True)], 0, (0, 255, 0), 3, cv.LINE_AA, hierarachy, 0)
 
+    # Draw only the biggest rectangle
     else:
         MAX_Size = 0
         MAX = None
@@ -33,8 +41,10 @@ def main(filename, RESIZE_RATIO=.25, MODE_ALL=False, show=False, return_all=Fals
 
         out = image.copy()
 
+        # Make the lines thicker
         cv.drawContours(out, [cv.approxPolyDP(MAX, 7.5, True)], 0, (0, 255, 0), 3, cv.LINE_AA, hierarachy, 0)
 
+    # OpenCV2 shows Images
     if show:
         cv.imshow("original", image)
         cv.imshow("out", out)
