@@ -6,11 +6,9 @@ from os import listdir, mkdir
 def main(filename, RESIZE_RATIO=.25, MODE_ALL=False, show=False, return_all=False):
     image = cv.imread(filename, cv.IMREAD_UNCHANGED)
     cols, rows, chns = image.shape
-    # print(" > Original Size", image.shape)
-    # print(f" > Resizing into {RESIZE_RATIO}")
+
     image = cv.resize(image, dsize=(int(rows*RESIZE_RATIO), int(cols*RESIZE_RATIO)), interpolation=cv.INTER_AREA)
     h, w = image.shape[:2]
-    # print(" > Resized ", image.shape)
 
     gray = cv.cvtColor(image, cv.COLOR_RGB2GRAY)
     blurred = cv.GaussianBlur(gray, (3, 3), 0)
@@ -27,7 +25,6 @@ def main(filename, RESIZE_RATIO=.25, MODE_ALL=False, show=False, return_all=Fals
         MAX_Size = 0
         MAX = None
 
-
         for c in contours:
             area = cv.contourArea(c)
             if area > MAX_Size:
@@ -40,9 +37,6 @@ def main(filename, RESIZE_RATIO=.25, MODE_ALL=False, show=False, return_all=Fals
 
     if show:
         cv.imshow("original", image)
-        # cv.imshow("gray", gray)
-        # cv.imshow("blurred", blurred)
-        # cv.imshow("canny", canny)
         cv.imshow("out", out)
         cv.waitKey(0)
         cv.destroyAllWindows()
@@ -52,10 +46,6 @@ def main(filename, RESIZE_RATIO=.25, MODE_ALL=False, show=False, return_all=Fals
     ) if return_all else (
         canny, out
     )
-
-    # cv.imshow("ygh", image)
-    # cv.waitKey(0)
-    # cv.destroyAllWindows()
 
 
 if __name__ == "__main__":
