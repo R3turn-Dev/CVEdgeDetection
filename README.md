@@ -17,6 +17,18 @@ Using Python OpenCV2, draw the edge lines of an image.
 
 Python OpenCV2를 이용하여 이미지에서 사각형의 윤곽을 찾고 이미지에 표시합니다.
 
+## Examples
+1. Original
+![Original](data-in/KakaoTalk_20190714_212059987.jpg)
+
+2. Canny
+![Cannyed Edge](data-out/KakaoTalk_20190714_212059987-x1-AllRectangle(False)-canny.jpg)
+
+3. Mixed (All Rects)
+![Mixed (All)](data-out/KakaoTalk_20190714_212059987-x1-AllRectangle(True)-mixed.jpg)
+
+4. Mixed (One)
+![Mixed (All)](data-out/KakaoTalk_20190714_212059987-x1-AllRectangle(False)-mixed.jpg)
 
 ## Usage
 1. Set-up a virtual environment and setup dependencies.
