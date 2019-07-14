@@ -1,0 +1,8 @@
+# Hide all hidden file/folders
+
+# Ignore VirtualEnv
+venv
+
+# Ignore compiled
+*.pyc
+__pycache__
