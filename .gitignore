@@ -1,4 +1,5 @@
 # Hide all hidden file/folders
+.*
 
 # Ignore VirtualEnv
 venv
